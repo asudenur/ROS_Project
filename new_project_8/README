@@ -1,0 +1,91 @@
+Line Follower and Go To Points
+
+Bu proje, Robot Operating System (ROS) kullanarak bir robotun belirli bir yol boyunca hareket etmesini, engelleri tespit ettiğinde kaçınmasını, başlangıç noktasına geri dönüp haritasını kaydetmesini ve belirlenen hedef noktalara ulaşmasını sağlar. Robot, başlangıç noktasından hareket ettikten sonra engel tespiti yapar, engellere göre yön değiştirir ve sonunda harita kaydetme işlemini tamamlar. Ayrıca, robot üç farklı hedef noktasına gidip, her birini başarıyla tamamladıktan sonra durur.
+Proje Açıklaması
+
+Bu proje, temel robotik hareketler ve harita kaydetme işlevselliği sağlar. İçerisinde iki ana işlevi yerine getiren sınıf bulunur: LineFollower ve GoToPoints.
+Robot Hareketi
+
+    Başlangıç Hareketi: Robot, başlangıç noktasından ilerlemeye başlar. Bu hareket sırasında robot, engel olup olmadığını kontrol eder.
+
+    Engel Tespiti ve Kaçınma: Eğer robot önünde bir engel tespit ederse, robot durur ve:
+        İlk olarak 360 derece döner, haritayı düzgünce görebilmek için dönüş yapar.
+        Ardından, 180 derece daha döner ve engelden kaçınmak amacıyla geri hareket eder.
+
+    Başlangıç Noktasına Dönme: Robot, başlangıç noktasına doğru ilerler. Bu nokta robot tarafından "başlangıç pozisyonu" olarak kaydedilmiştir. Başlangıç noktasına ulaşıldığında robot durur.
+
+    Harita Kaydetme: Başlangıç noktasına geri döndükten sonra robot, çevresinin haritasını kaydeder. Kaydedilen harita, robotun bulunduğu konum ve engeller hakkında bilgi içerir.
+
+    Hedef Noktalara Gitme: Robot, belirlenen üç hedef noktaya (waypoints) sırasıyla gider. Her hedefe ulaştığında, bir sonraki hedefe geçer. Son hedefe ulaştığında robot durur.
+
+Kullanıcı Modülleri
+
+    LineFollower:
+    Bu sınıf, robotun temel hareket kontrolünü sağlar. Robotun:
+        İleriye doğru hareket etmesi,
+        Engel tespitinde dönmesi,
+        Başlangıç noktasına geri dönmesi işlemlerini yönetir.
+
+    Ayrıca, harita kaydetme işlemi de bu sınıf tarafından yapılır.
+
+    GoToPoints:
+    Bu sınıf, robotu önceden belirlenmiş üç hedef noktasına yönlendirir. Robot, her hedefe ulaştığında bir sonraki hedefe yönlendirilir ve sonunda robot durur.
+
+Kod Açıklaması
+
+    LaserScan:
+    Robotun çevresindeki engelleri tespit etmek için lazer tarayıcıdan alınan veriler işlenir. LaserScan verileri, robotun etrafındaki mesafeleri belirleyerek engellerin olup olmadığını kontrol eder.
+
+    Odometry:
+    Robotun pozisyonunu ve hareketini izler. Robotun konumunun (x, y) koordinatları ve yönü (yaw) belirlenir. Bu bilgiler robotun hareketini takip etmek ve doğru hedeflere yönlendirmek için kullanılır.
+
+    Twist Mesajı:
+    Robotun hareket komutlarını içerir. Linear (doğrusal) ve angular (dönüş) hızlar bu mesajda belirlenir ve robotu hareket ettirir.
+
+Kullanım
+Projeyi Başlatma
+
+Projenin simülasyonu ve çalıştırılmasını başlatmak için aşağıdaki komutları takip edebilirsiniz:
+
+    ROS ortamında projenizi başlatmak için terminalde şu komutu çalıştırın:
+
+roslaunch but_odevi asude.launch
+
+Bu komut, robotun hareket etmesini ve harita kaydetme işlemini başlatacaktır.
+
+Başlangıç Hareketi:
+Robot, başlangıç noktasından ileriye doğru hareket etmeye başlar. Eğer robot engel tespit ederse, 360 derece döner ve ardından 180 derece daha döner. Ardından engeli geçmek için geri hareket eder.
+
+Başlangıç Noktasına Dönme:
+Robot, başlangıç noktasına doğru ilerler. Başlangıç noktasına ulaştığında robot durur ve harita kaydetme işlemini başlatır.
+
+Harita Kaydetme:
+Robot, başlangıç noktasına döndükten sonra çevresindeki haritayı kaydeder. Kaydedilen harita, robotun bulunduğu ortamdaki engellerin bir temsilidir. Harita, şu dizine kaydedilir:
+
+    ~/catkin_ws/src/but_odevi/src/maps/
+
+    Hedef Noktalara Gitme:
+    Robot, üç belirli hedef noktaya yönlendirilir. Her hedefe ulaştığında bir sonraki hedefe geçer. Hedeflere ulaşıldığında robot durur ve işlemi tamamlar.
+
+Harita Kaydetme
+
+Robot, başlangıç noktasına döndüğünde harita kaydetme işlemi yapılır. Bu işlem, robotun çevresini anlamasını ve engelleri takip etmesini sağlar. Harita kaydedildikten sonra, robotun hareket ve engel algılama bilgileri bir dosyada saklanır. Bu dosya, ROS ortamında kullanılabilir.
+Engel Algılama ve Kaçınma
+
+Robot, çevresindeki engelleri tespit etmek için lazer sensörü kullanır. Eğer bir engel tespit edilirse, robot öncelikle 360 derece döner ve engeli geçmek için bir strateji belirler. Ardından 180 derece daha döner ve engelden kaçınmaya çalışır. Bu süreç, robotun çevresindeki engellerden etkilenmeden hedefe doğru ilerlemesini sağlar.
+Geliştirme ve Özelleştirme
+
+Proje, farklı robot türleri ve harita algoritmaları ile genişletilebilir. Örneğin:
+
+    Harita Kaydetme:
+    Harita kaydetme işlevi farklı algoritmalarla geliştirilebilir. Örneğin, SLAM (Simultaneous Localization and Mapping) teknolojisi ile daha geniş ve detaylı haritalar oluşturulabilir.
+
+    Engel Kaçınma:
+    Engel kaçınma stratejileri farklı durumlar için optimize edilebilir. Örneğin, daha karmaşık engel tespiti ve hareket stratejileri eklenebilir.
+
+    Hedef Noktaları:
+    Hedef noktalarının sayısı ve konumları değiştirilerek robotun görev yelpazesi genişletilebilir.
+
+Sonuç
+
+Bu proje, ROS kullanarak robotik sistemlerde temel hareket kontrolü, engel tespiti, harita kaydetme ve hedeflere yönlendirme gibi önemli görevleri başarıyla yerine getirir. Projenin çalışma mantığı, robotun gerçek dünyada bağımsız bir şekilde hareket etmesine olanak sağlar. Bu tür projeler, otonom robot teknolojilerinin geliştirilmesinde önemli adımlardır.

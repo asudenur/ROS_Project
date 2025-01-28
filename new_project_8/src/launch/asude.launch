@@ -1,0 +1,13 @@
+<launch>
+     <!-- TurtleBot3 Gazebo ortamını başlat -->
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch"/>
+
+    <!-- SLAM Gmapping Launch -->
+    <include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+        <arg name="slam_methods" value="gmapping" />
+    </include>
+  
+    <node pkg="but_odevi" type="line_follower_with_go_to_points.py" name="line_follower_with_go_to_points" output="screen"/>
+
+</launch>
+
