@@ -1,0 +1,59 @@
+Otonom Robot Görevleri Projesi
+
+Bu projede, bir otonom robotun çeşitli görevleri yerine getirmesi amaçlanmıştır. Robot, odanın çevresini algılayarak en yakın duvara hareket eder, odanın etrafında dolaşır, bir harita oluşturur ve bu haritayı kullanarak odayı tamamen kapsayacak şekilde hareket eder.
+---
+
+## Projenin Amacı
+
+Bu proje, robotun aşağıdaki adımları başarıyla tamamlamasını sağlar:
+
+1. **En Yakın Duvara Gitme**: Robot başlangıç noktasından en yakın duvara doğru hareket eder ve ona güvenli bir mesafede durur.
+2. **Duvar Takibi**: Robot, duvar boyunca hareket ederek odanın çevresini dolaşır ve başladığı noktaya geri döner.
+3. **Harita Çıkarma**: Robot, çevresindeki odanın bir haritasını çıkarır ve bu haritayı dosyaya kaydeder.
+4. **Haritaya Göre Temizlik**: Robot, çıkarılan haritayı kullanarak tüm odayı temizleyecek şekilde hareket eder.
+
+---
+
+## Proje Dosyaları
+
+### 1. `move_to_wall.py`
+- **Görev**: Robotun başlangıç pozisyonundan en yakın duvara gitmesini sağlar.
+- **Ana Özellikler**:
+  - Lidar taraması ile en yakın mesafedeki duvarı tespit eder.
+  - Duvara doğru hareket eder ve belirli bir güvenli mesafede durur.
+
+### 2. `wall_follower.py`
+- **Görev**: Robotun duvarı takip ederek odanın çevresinde dolaşmasını sağlar.
+- **Ana Özellikler**:
+  - Lidar ile engelleri algılar ve duvara paralel hareket eder.
+  - Harita oluşturur ve kaydeder.
+
+### 3. `grid_cleaner.py`
+- **Görev**: Robotun odadaki tüm alanı kaplayacak şekilde hareket etmesini sağlar.
+- **Ana Özellikler**:
+  - Çıkartılmış haritayı kullanarak temizlik hareketi uygular.
+  - Engel algılamaya dayalı akıllı yönlendirme sistemi içerir.
+  
+## Robot Nasıl Çalışır?
+
+Bu projede kullanılan robot, ROS (Robot Operating System) ile kontrol edilir. Robot, lazer tarama sensörleri (Lidar), odometri ve hareket komutlarını kullanarak aşağıdaki şekilde çalışır:
+
+1. Robot önce çevresini tarar ve en yakın duvarın konumunu belirler.
+2. Robot, en yakın duvara gider ve durur.
+3. Robot, odanın duvarlarını takip ederek başladığı yere geri döner.
+4. Robot, çıkardığı haritayı kullanarak odayı tamamen kapsayacak şekilde hareket eder.
+
+
+Projeyi Çalıştırmak İçin;
+
+1) Terminale açarak ilk başta Gazebo ortamımızı açıyoruz:
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+2) Daha sonrasında mapi kaydedebilmek için Rviz açıyoruz:
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+##Sırayla kodları çalıştırıyoruz:
+3) En yakın duvara gitmesi için move_to_wall.py çalıştırıyoruz:
+rosrun final_odevi move_to_wall.py
+4) Duvar kenarları boyunca ilerleyerek mapi oluşturması ve kaydetmesi için wall_follower.py çalıştırıyoruz:
+rosrun final_odevi wall_follower.py
+5) Robotun süpürge hareketlerini yapması için grid_cleaner.py çalıştırıyoruz:
+rosrun final_odevi grid_cleaner.py
