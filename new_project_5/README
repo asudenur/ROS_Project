@@ -1,0 +1,42 @@
+Robot Navigation with Obstacle Avoidance
+
+Bu proje, ROS (Robot Operating System) kullanarak bir robotun Gazebo ortamında belirli hedef noktalarına engellerden kaçınarak gitmesini sağlamak için geliştirilmiştir. Robot, harita üzerinde 3 hedef noktayı sırasıyla ziyaret eder ve her hedefe ulaştığında engellerden kaçınarak bir sonraki hedefe geçer.
+Proje Amacı
+
+Bu proje, robotun LIDAR sensörü ile çevresindeki engelleri algılamasını, ardından move_base aracılığıyla bu engellerden kaçınarak hedefe gitmesini sağlar. Robotun hedef noktaları belirli bir sırayla ziyaret edilir ve her hedefe ulaşıldığında, robot bir sonraki hedefe doğru hareket eder.
+Proje Kullanımı
+1) Gazeboyu başlatmak için birinci terminale aşağıdaki komutu yazıyoruz;
+	roslaunch turtlebot3_gazebo turtlebot3_house.launch
+
+Bu komut, Gazebo ortamında robotu başlatacak ve robotun harita üzerinde hareket etmeye başlamasını sağlayacaktır.
+
+2) Launch dosyasını çalıştırmak için ikinci terminale aşağıdaki komutu yazıyoruz;
+
+	roslaunch odev6 asude.launch map_file:=/home/asude/catkin_ws/src/odev6/src/house_m_map.yaml
+	Eğer açılan rviz'de haritayla eşit değilse rvizde 2D Pose Estimate ile istenilen konuma getirerek kodu çalıştırabilirsiniz.
+
+Simülasyon esnasında robotun hareketini ve engel algılamasını RViz ile takip edebilirsiniz. RViz, robotun konumunu, sensör verilerini ve haritayı görsel olarak izleyebilmenizi sağlar.
+Buraya çıkarttığımız mapin yolunu ekleyerek onu rvize ekliyoruz.
+
+3) Kodu çalıştırmak için üçüncü terminale aşağıdaki komutu yazıyoruz;
+
+	rosrun odev6 navigate_goal.py
+	
+Bu komut, robotu 3 farklı hedefe sırasıyla gönderecek ve her hedefe ulaştığında robotun engellerden kaçınarak hareket etmesini sağlayacaktır.
+
+Proje Yapısı
+Python Kodu:
+
+    navigate_goal.py: Robotun engellerden kaçınarak belirli hedeflere gitmesini sağlar. LIDAR verilerini alır, engel algılar ve robotu engellerden kaçırarak hedeflere yönlendirir.
+
+Launch Dosyaları:
+
+    asude.launch: Gazebo ortamını, haritayı yüklemeyi, AMCL'yi ve move_base'i başlatır.
+    move_base_params.yaml: move_base ve costmap ayarlarını içerir.
+
+Özellikler
+
+    Engel Algılama: Robot, LIDAR verisi ile çevresindeki engelleri algılar ve bunlardan kaçınarak hedefe yönelir.
+    Hedeflere Sırasıyla Gitme: Robot, verilen hedeflere sırasıyla gider ve her hedefe ulaştığında bir sonraki hedefe geçer.
+    Yol Planlaması: move_base ve amcl kullanarak robotun harita üzerinde hedeflere güvenli bir şekilde gitmesi sağlanır.
+
