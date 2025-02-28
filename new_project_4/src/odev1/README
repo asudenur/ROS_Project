@@ -1,0 +1,42 @@
+ROS (Robot Operating System) kullanarak bir robotun belirli bir hedefe ulaşmasını simüle ediyoruz. Robot, hedefe ulaşana kadar belirli bir hızla hareket eder ve her hareket ettiğinde konumunu güncelleyerek hedefe doğru ilerler. Hedefe ulaştığında, robot durur ve bu süreçte Publisher-Subscriber modelini kullanarak robotun durumu sürekli olarak güncellenir. Ödev, robotun hızını ve konumunu temsil eden özel bir mesaj tanımını içerir ve kullanıcıların ROS ortamında robot simülasyonu yapmasını sağlar.
+
+Ödev İçeriği
+    robot_publisher.py: Robotun pozisyonunu ve hızını yayınlayan bir ROS publisher.
+    robot_subscriber.py: Robotun pozisyonunu dinleyen ve hedefe ulaşıldığında publisher'ı durduran bir ROS subscriber.
+    RobotSensor.msg: Robotun hızını ve pozisyonunu içeren mesaj tanımı.
+    
+Mesaj Tanımı
+Bu mesaj, robotun hızını ve pozisyonunu içerir
+	RobotSensor.msg
+	float32 velocity
+	float32 x
+	float32 y
+
+    velocity: Robotun hızı (m/s).
+    x: Robotun X koordinatı.
+    y: Robotun Y koordinatı.
+     
+Bu ödev, öncelikle ROS ortamında bir Catkin workspace oluşturularak başlandı. Proje, robotun hızını ve pozisyonunu güncelleyen bir robot_publisher.py dosyası ve robotun pozisyonunu dinleyerek hedefe ulaştığında publisher'ı durduran bir robot_subscriber.py dosyası içerir. Robotun durumu, özel olarak tanımlanmış bir mesaj formatı olan RobotSensor.msg kullanılarak iletilir. ROS Master çalıştırıldıktan sonra, publisher ve subscriber ayrı terminal pencerelerinde başlatılarak robotun hedefe ulaşma simülasyonu gerçekleştirildi.  
+
+Kullanım
+1. ROS Master'ı Başlatın
+Öncelikle, ROS Master'ı çalıştırmalısınız. Bunu yapmak için bir terminal açın ve aşağıdaki komutu yazın:
+
+roscore
+
+Bu komut, ROS sisteminin merkezi bileşeni olan ROS Master'ı başlatır.
+2. Robot Publisher'ı Başlatın
+Yeni bir terminal penceresi açın ve robotun pozisyonunu ve hızını yayınlamak için aşağıdaki komutu çalıştırın:
+
+rosrun ros_tutorials robot_publisher.py
+
+Bu işlem, robotun belirlenen hızla hareket etmesini ve konumunu sürekli olarak güncellemesini sağlar.
+3. Robot Subscriber'ı Başlatın
+
+Başka bir yeni terminal penceresi açın ve robotun pozisyonunu dinlemek ve hedefe ulaştığında publisher'ı durdurmak için aşağıdaki komutu çalıştırın:
+
+rosrun ros_tutorials robot_subscriber.py
+
+Bu işlem, robotun mevcut pozisyonunu takip eder ve hedefe ulaştığında gerekli durdurma işlemlerini gerçekleştirir.
+
+Robot, belirli bir hedefe ulaşana kadar hareket edecek ve hedefe ulaştığında duracaktır. Hedefe ulaşıldığında, her iki node da düzgün bir şekilde kapanacaktır.
