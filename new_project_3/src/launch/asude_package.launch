@@ -1,0 +1,14 @@
+<launch>
+    <!-- Gazebo'yu başlatma -->
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch"/>
+
+    <!-- TurtleBot otomatik hareket node'u -->
+    <node name="move" pkg="AsudeNurDemir" type="move.py" output="screen" />
+
+    <!-- Pose dinleme ve yol hesaplama node'u -->
+    <node name="path" pkg="AsudeNurDemir" type="path.py" output="screen" />
+
+    <!-- Konya sıcaklık node'u -->
+    <node name="temperature" pkg="AsudeNurDemir" type="temperature.py" output="screen" />
+</launch>
+

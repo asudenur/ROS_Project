@@ -1,0 +1,45 @@
+VİZE ÖDEVİ
+
+Bu ROS (Robot Operating System) paketi, TurtleBot’un çeşitli hareket senaryolarını uygulamasını, anlık pozisyon verilerini kullanarak gidilen mesafeyi hesaplamasını ve Konya'nın anlık hava sıcaklığını almasını sağlar. Tüm bu işlemler, bir launch dosyası ile çalıştırılarak paket içindeki modüller etkinleştirilebilir.
+
+Özellikler
+    TurtleBot Hareketi: TurtleBot, belirlenen bir hareket dizisini (5sn ileri, sonra 90derece sola dönme ve 5 sn geri, sonra 90 derece sağa döndükten sonra 5sn ileri ve en son 135 derece döndükten sonra 5 sn ileri gidecek) otomatik olarak uygular.
+    Mesafe Takibi: TurtleBot’un pose verilerini kullanarak x ve y eksenlerinde gidilen mesafeyi hesaplar. Bu değer her saniye değil, belirli koşullara bağlı olarak güncellenir.
+    Hava Durumu Takibi: Konya’nın anlık sıcaklık bilgisini bir API’den alarak ROS üzerinden yayınlar.
+    Tek Launch Dosyası: Tüm bu işlemleri başlatmak için tek bir launch dosyası (asude_package.launch) ile tüm düğümleri çalıştırabilirsiniz.
+
+Kurulum
+Bu projeyi catkin_ws çalışma alanınıza kopyalayın:
+
+cd ~/catkin_ws/src
+git clone <repo-url>
+cd ~/catkin_ws
+catkin_make
+source devel/setup.bash
+
+Kullanım
+
+Bu paketi çalıştırmak için asude_package.launch dosyasını kullanarak tüm düğümleri başlatabilirsiniz:
+
+roslaunch AsudeNurDemir asude_package.launch
+
+Node'lar
+
+    TurtleBot Otomatik Hareket: TurtleBot, otomatik olarak önceden tanımlanmış bir hareket dizisini uygular. Bu dizi, ileri gitme, dönme ve geri gitme hareketlerinden oluşur.
+    Mesafe Takip Node'u: TurtleBot'un pozisyon verilerini dinler ve x ile y eksenlerinde aldığı toplam yolu hesaplar.
+    Sıcaklık Node'u: Konya'nın anlık sıcaklık bilgisini bir API üzerinden alır ve ROS üzerinde yayınlar.
+
+CMake ve Paket Yapısı
+
+    CMakeLists.txt ve package.xml dosyaları, projenin derleme ayarlarını ve bağımlılıklarını tanımlar. Bu dosyalar std_msgs, geometry_msgs, message_generation gibi ROS bağımlılıklarını içerir​.
+
+Gereksinimler
+
+Bu paket için aşağıdaki ROS bağımlılıkları gereklidir:
+
+    std_msgs
+    geometry_msgs
+    message_generation
+    roscpp
+    rospy
+
