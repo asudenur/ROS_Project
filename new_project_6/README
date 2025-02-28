@@ -1,0 +1,37 @@
+TurtleBot3 Engel Algılama ve Kaçınma Projesi
+
+Bu proje, TurtleBot3'ün Gazebo ortamında engel algılayıp kaçınmasını sağlayan bir ROS paketini içerir. Robot, Rviz üzerinde lazer taramalarını görüntüleyerek önündeki engelleri algılar ve Gazebo ortamında hareket eder.
+
+Projenin Amacı ve Özeti
+
+Bu projede TurtleBot3, Gazebo simülasyon ortamında lazer tarayıcı verilerini kullanarak önündeki engelleri algılar ve uygun kaçınma hareketlerini gerçekleştirir. Proje, Rviz üzerinde lazer taramalarını görselleştirerek kullanıcıya robotun çevresindeki ortam hakkında bilgi sunar.
+
+Robotun temel davranışları:
+
+Hareket Etme: Robot engel olmadığı sürece ileri hareket eder.
+
+Engel Algılama: Lazer tarayıcı yardımıyla belirlenen minimum mesafeden daha yakın bir engel algılandığında durur.
+
+Kaçınma: Engel algılandıktan sonra robot döner ve tekrar hareket etmeye başlar.
+
+
+Kullanım
+
+Launch Dosyasını Çalıştırın:
+Tüm sistemi başlatmak için aşağıdaki komutu çalıştırın:
+
+roslaunch odev5 asude.launch
+
+Rviz ve Gazebo Ortamını Gözlemleyin:
+
+Gazebo ortamında TurtleBot3, engelleri algılayıp kaçınma hareketleri yapacaktır.
+
+Rviz'de lazer tarama (LaserScan) bilgileri görüntülenecektir.
+
+Özellikler
+
+Engel Algılama: Robot, lazer taramaları kullanarak önündeki engelleri algılar.
+
+Hareket Kontrolü: Engel algılandığında robot durur, 90 derece döner ve harekete devam eder.
+
+Gazebo ve Rviz Entegrasyonu: Simülasyon ve algılanan verilerin canlı görüntülenmesi.

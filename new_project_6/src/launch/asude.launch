@@ -1,0 +1,11 @@
+<launch>
+    <!-- TurtleBot3 Gazebo ortamını başlat -->
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+    <!-- Rviz'i başlat -->
+    <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_gazebo_rviz.launch"/>
+
+    <!-- Python node'u başlat -->
+    <node pkg="odev5" type="move_stop_rotate_gazebo.py" name="obstacle_avoidance_node" output="screen" />
+</launch>
+
